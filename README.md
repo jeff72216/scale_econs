@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains Python scripts used for the empirical demonstration of the paper "Economies of Scale to Consumption in Collective Households" by Hsin-Yuan Hsieh, Arthur Lewbel, and Krishna Pendakur (2024). The data is sourced from the 1997-2009 Canadian Survey of Household Spending public-use microdata.
+This repository contains Python scripts used for the empirical demonstration of the paper _Economies of Scale to Consumption in Collective Households_ by Hsin-Yuan Hsieh, Arthur Lewbel, and Krishna Pendakur (2024). The data is sourced from the 1997-2009 Canadian Survey of Household Spending public-use microdata.
 
 ## Contents
 
