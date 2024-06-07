@@ -295,7 +295,7 @@ if __name__ == '__main__':
     SHAREABLE = (1, 2, 8, 17, 19) # Shareable goods
     NONSHAREABLE = 6 # Nonshareable good
     DEMOG = (1, 2) # Demographic variables
-    rep = 1000 # Number of replications in bootstrap
+    REP = 1000 # Number of replications in bootstrap
     np.random.seed(123)
 
 
@@ -363,14 +363,14 @@ if __name__ == '__main__':
     # Generate an 2-d array of indices for the resampling process.
     resampling = np.random.choice(
         range(clusters.index(list(set(clusters))[1])), 
-        size=(rep, clusters.index(list(set(clusters))[1]))
+        size=(REP, clusters.index(list(set(clusters))[1]))
         )
     for i in range(1, len(list(set(clusters)))-1):
         resampling_new = np.random.choice(
             range(clusters.index(list(set(clusters))[i]),
                   clusters.index(list(set(clusters))[i+1])), 
             size=(
-                rep, 
+                REP, 
                 (clusters.index(list(set(clusters))[i+1])
                  -clusters.index(list(set(clusters))[i]))
                 )
@@ -380,7 +380,7 @@ if __name__ == '__main__':
         range(clusters.index(list(set(clusters))[len(list(set(clusters)))-1]), 
               shs_boot.shape[0]), 
         size=(
-            rep, 
+            REP, 
             (shs_boot.shape[0]
              -clusters.index(list(set(clusters))[len(list(set(clusters)))-1]))
             )
@@ -389,16 +389,16 @@ if __name__ == '__main__':
 
 
     # Bootstrap starts, use parallel process.
-    args = [(resampling[iter], shs_boot) for iter in range(rep)]
+    args = [(resampling[iter], shs_boot) for iter in range(REP)]
     pool = Pool()
-    results_store = list(tqdm(pool.imap(bootstrap_star, args), total=rep))
+    results_store = list(tqdm(pool.imap(bootstrap_star, args), total=REP))
     pool.close()
     pool.join()
 
 
     # Translate the output of the bootstrap function into a variable.
-    std_store = np.zeros((rep, int(len(SHAREABLE)*len(TYPE))))
-    for i in range(rep):
+    std_store = np.zeros((REP, int(len(SHAREABLE)*len(TYPE))))
+    for i in range(REP):
         std_store[i, :] = results_store[i].to_numpy()
 
 
