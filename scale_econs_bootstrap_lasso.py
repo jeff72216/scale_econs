@@ -546,7 +546,7 @@ if __name__ == '__main__':
     SHAREABLE = (1, 2, 8, 17, 19) # Shareable goods
     NONSHAREABLE = 6 # Nonshareable good
     DEMOG = (1, 2) # Demographic variables
-    rep = 1000 # Number of replications in bootstrap
+    REP = 1000 # Number of replications in bootstrap
     np.random.seed(123)
 
 
@@ -842,14 +842,14 @@ if __name__ == '__main__':
     # Generate an 2-d array of indices for the resampling process.
     resampling = np.random.choice(
         range(clusters.index(list(set(clusters))[1])), 
-        size=(rep, clusters.index(list(set(clusters))[1]))
+        size=(REP, clusters.index(list(set(clusters))[1]))
         )
     for i in range(1, len(list(set(clusters)))-1):
         resampling_new = np.random.choice(
             range(clusters.index(list(set(clusters))[i]),
                   clusters.index(list(set(clusters))[i+1])), 
             size=(
-                rep, 
+                REP, 
                 (clusters.index(list(set(clusters))[i+1])
                  -clusters.index(list(set(clusters))[i]))
                 )
@@ -859,7 +859,7 @@ if __name__ == '__main__':
         range(clusters.index(list(set(clusters))[len(list(set(clusters)))-1]), 
               shs_boot.shape[0]), 
         size=(
-            rep, 
+            REP, 
             (shs_boot.shape[0]
              -clusters.index(list(set(clusters))[len(list(set(clusters)))-1]))
             )
@@ -872,31 +872,31 @@ if __name__ == '__main__':
              shs_boot, 
              lasso_selec, 
              lasso_l, 
-             lasso_u) for iter in range(rep)]
+             lasso_u) for iter in range(REP)]
     pool = Pool()
-    results_store = list(tqdm(pool.imap(bootstrap_star, args), total=rep))
+    results_store = list(tqdm(pool.imap(bootstrap_star, args), total=REP))
     pool.close()
     pool.join()
 
 
     # Translate the output of the bootstrap function into variables.
     cov_store = np.zeros(
-        (rep, int((len(SHAREABLE)*(len(SHAREABLE)+1)/2)*len(TYPE)))
+        (REP, int((len(SHAREABLE)*(len(SHAREABLE)+1)/2)*len(TYPE)))
         )
     cov_pd_store = np.zeros(
-        (rep, int((len(SHAREABLE)*(len(SHAREABLE)+1)/2)*len(TYPE)))
+        (REP, int((len(SHAREABLE)*(len(SHAREABLE)+1)/2)*len(TYPE)))
         )
     cor_store = np.zeros(
-        (rep, int((len(SHAREABLE)*(len(SHAREABLE)+1)/2)*len(TYPE)))
+        (REP, int((len(SHAREABLE)*(len(SHAREABLE)+1)/2)*len(TYPE)))
         )
-    std_store = np.zeros((rep, int(len(SHAREABLE)*len(TYPE))))
-    std_scale_s_store = np.zeros((rep, int(len(TYPE))))
-    std_scale_sm_store = np.zeros((rep, int(len(TYPE))))
-    std_scale_sf_store = np.zeros((rep, int(len(TYPE))))
-    std_l_store = np.zeros((rep, int(len(SHAREABLE)*len(TYPE))))
-    std_u_store = np.zeros((rep, int(len(SHAREABLE)*len(TYPE))))
+    std_store = np.zeros((REP, int(len(SHAREABLE)*len(TYPE))))
+    std_scale_s_store = np.zeros((REP, int(len(TYPE))))
+    std_scale_sm_store = np.zeros((REP, int(len(TYPE))))
+    std_scale_sf_store = np.zeros((REP, int(len(TYPE))))
+    std_l_store = np.zeros((REP, int(len(SHAREABLE)*len(TYPE))))
+    std_u_store = np.zeros((REP, int(len(SHAREABLE)*len(TYPE))))
 
-    for i in range(rep):
+    for i in range(REP):
         cov_store[i, :] = results_store[i][0].to_numpy()
         cov_pd_store[i, :] = results_store[i][1].to_numpy()
         cor_store[i, :] = results_store[i][2].to_numpy()
