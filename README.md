@@ -17,7 +17,7 @@ This repository contains Python scripts used for the empirical demonstration of 
      - Estimate of the standard deviation of household-level economies of scale index.
      - Tests of model assumptions, identification, and the shareability of goods.
 
-2. **scale_econs_bt_lasso.py**
+2. **scale_econs_bootstrap_lasso.py**
    - **Purpose**: Provides the bootstrap results of Barten scale covariance matrices (with LASSO).
    - **Outputs**:
      - Bootstrap standard errors of Barten scale covariance matrices.
@@ -26,7 +26,7 @@ This repository contains Python scripts used for the empirical demonstration of 
      - Bootstrap standard error of the standard deviation of household-level economies of scale index.
      - LASSO robustness check.
 
-3. **scale_econs_bt.py**
+3. **scale_econs_bootstrap.py**
    - **Purpose**: Provides the bootstrap results of Barten scale standard deviations (without LASSO).
    - **Outputs**:
      - Bootstrap standard errors of Barten scale standard deviations.
