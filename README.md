@@ -45,7 +45,7 @@ This project makes use of functions from the following repositories:
 
 ## Issues and Contact
 
-For any questions or issues, please open an issue on this repository or contact us at [jeff_hsieh@sfu.ca](mailto:jeff_hsieh@sfu.ca).
+For any questions or issues, please open an issue on this repository or contact us at [jeff_hsieh@mx.nthu.edu.tw](mailto:jeff_hsieh@mx.nthu.edu.tw).
 
 ---
 
